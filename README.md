@@ -1,4 +1,4 @@
-#Aether – Built for the Unfold Hackathon
+Aether – Built for the Unfold Hackathon
 
 - A finance manager application that automates crypto trading.
 - Scrapes Web3 social media platforms for trending tokens and news.
