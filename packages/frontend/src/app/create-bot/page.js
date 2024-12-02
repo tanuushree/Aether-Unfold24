@@ -15,7 +15,7 @@ const steps = [
 ];
 
 const StepperForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(2);
   const [formData, setFormData] = useState({
     botName: "",
     tradingObjective: "",

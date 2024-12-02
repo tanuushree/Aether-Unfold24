@@ -1,19 +1,47 @@
-import React from "react";
+"use client"
+import React,{useState} from "react";
 import { SiGooglenews } from "react-icons/si";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { TbChartCandleFilled } from "react-icons/tb";
 import { GoogleLogin } from '@react-oauth/google';
+import { useOkto} from 'okto-sdk-react';
+
 
 
 
 
 const StepContent = ({ currentStep, formData, handleChange, handleCheckboxChange, handleMultiSelectChange }) => {
+  const [creds,setCreds] = useState(null);
+
+  const { createWallet , authenticate,getWallets } = useOkto();
+
+
+  const handleWalletCreate = async() => {
+    try {
+      const walletsData = await createWallet();
+      console.log(walletsData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   const handleSuccess = (response) => {
     console.log('Login Success:', response);
     // Process the response token or user details
+    authenticate(response.credential, (result, error) => {
+      if (result) {
+          console.log('authentication successful',result);
+      }
+      if (error) {
+          console.error('authentication error:', error);
+      }
+    });
   };
+
+
+
+  
 
   const handleError = () => {
     console.error('Login Failed');
@@ -98,6 +126,13 @@ const StepContent = ({ currentStep, formData, handleChange, handleCheckboxChange
         <>
           <label className="block text-gray-700 font-medium mb-2">Connect your wallet</label>
           <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+        </>
+      );
+      case 3:
+      return (
+        <>
+          <label className="block text-gray-700 font-medium mb-2">Create your wallet</label>
+          <button onClick={handleWalletCreate} >create wallet</button>
         </>
       );
     case 6:
